@@ -1,6 +1,6 @@
 {
   "name": "react-native-siri-shortcuts",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A package for managing a queue of API requests.",
   "repository": {
     "type": "git",
