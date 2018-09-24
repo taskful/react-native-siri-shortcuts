@@ -23,7 +23,16 @@
   },
   "homepage": "https://github.com/taskful/react-native-siri-shortcuts#readme",
   "devDependencies": {
-    "eslint": "^5.4.0",
-    "eslint-config-taskful": "^0.1.0"
-  }
+    "eslint": "^5.6.0",
+    "eslint-config-taskful": "^0.1.0",
+    "lint-staged": "^7.3.0",
+    "pre-commit": "^1.2.2"
+  },
+  "scripts": {
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": "eslint"
+  },
+  "pre-commit": "lint-staged",
 }
