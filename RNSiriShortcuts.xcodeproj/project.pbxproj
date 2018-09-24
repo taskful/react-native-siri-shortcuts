@@ -24,7 +24,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		134814201AA4EA6300B7C361 /* react-native-siri-shortcuts */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "react-native-siri-shortcuts"; path = "../../../../../../../../Taskful/react-native-siri-shortcuts"; sourceTree = BUILT_PRODUCTS_DIR; };
+		134814201AA4EA6300B7C361 /* libRNSiriShortcuts.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libRNSiriShortcuts.a"; path = "../../../../../../../../Taskful/libRNSiriShortcuts.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13BE3DEC1AC21097009241FE /* RNSiriShortcuts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNSiriShortcuts.h; sourceTree = "<group>"; };
 		13BE3DED1AC21097009241FE /* RNSiriShortcuts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNSiriShortcuts.m; sourceTree = "<group>"; };
 		C7E2388D1CDD15E7006F909F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -45,7 +45,7 @@
 		134814211AA4EA7D00B7C361 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				134814201AA4EA6300B7C361 /* react-native-siri-shortcuts */,
+				134814201AA4EA6300B7C361 /* libRNSiriShortcuts.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -77,7 +77,7 @@
 			);
 			name = RNSiriShortcuts;
 			productName = RCTDataManager;
-			productReference = 134814201AA4EA6300B7C361 /* react-native-siri-shortcuts */;
+			productReference = 134814201AA4EA6300B7C361 /* libRNSiriShortcuts.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */

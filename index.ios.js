@@ -2,10 +2,10 @@ import {
   NativeModules,
 } from 'react-native';
 
-var NativeRNSiriShortcuts = NativeModules.RNSiriShortcuts;
+const { RNSiriShortcuts } = NativeModules;
 
-var RNSiriShortcuts = {
-  createActivity: options => NativeRNSiriShortcuts.createActivity(
+const SiriShortcuts = {
+  createActivity: options => RNSiriShortcuts.createActivity(
     options.activityType,
     options.eligibleForSearch,
     options.eligibleForPublicIndexing,
@@ -21,8 +21,8 @@ var RNSiriShortcuts = {
     options.phoneNumber,
     options.description,
     options.thumbnailURL,
-    options.identifier
+    options.identifier,
   ),
 };
 
-export default RNSiriShortcuts;
+export default SiriShortcuts;
