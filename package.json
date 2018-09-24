@@ -1,0 +1,29 @@
+{
+  "name": "react-native-siri-shortcuts",
+  "version": "0.1.0",
+  "description": "A package for managing a queue of API requests.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taskful/react-native-siri-shortcuts.git"
+  },
+  "nativePackage": true,
+  "keywords": [
+    "react-native",
+    "react",
+    "nsuseractivity",
+    "activity",
+    "siri",
+    "shortcuts",
+    "ios"
+  ],
+  "author": "Taskful, Inc.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/taskful/react-native-siri-shortcuts/issues"
+  },
+  "homepage": "https://github.com/taskful/react-native-siri-shortcuts#readme",
+  "devDependencies": {
+    "eslint": "^5.4.0",
+    "eslint-config-taskful": "^0.1.0"
+  }
+}
