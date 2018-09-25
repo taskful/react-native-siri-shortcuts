@@ -24,7 +24,7 @@ Declare the activity types that your app supports by including the [NSUserActivi
 # Sample usage
 
 ```js
-import RNSiriShortcuts from 'react-native-user-activity';
+import RNSiriShortcuts from 'react-native-siri-shortcuts';
 
 ...
 
