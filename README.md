@@ -1,4 +1,4 @@
-# React Native Siri Shortcuts &middot;  [![npm version](https://badge.fury.io/js/api-queue-manager.svg)](https://badge.fury.io/js/api-queue-manager)
+# React Native Siri Shortcuts &middot;  [![npm version](https://badge.fury.io/js/react-native-siri-shortcuts.svg)](https://badge.fury.io/js/react-native-siri-shortcuts)
 
 NSUserActivity for React Native
 
