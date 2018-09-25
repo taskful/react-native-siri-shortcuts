@@ -1,89 +1,92 @@
 #import "RNSiriShortcuts.h"
 @import CoreSpotlight;
 @import MapKit;
+@import Intents;
 
 @implementation RNSiriShortcuts
 
 RCT_EXPORT_MODULE()
 
 RCT_EXPORT_METHOD(
-  createActivity:(NSString *)activityType
-  eligibleForSearch:(BOOL)eligibleForSearch
-  eligibleForPublicIndexing:(BOOL)eligibleForPublicIndexing
-  eligibleForHandoff:(BOOL)eligibleForHandoff
-  eligibleForPrediction:(BOOL)eligibleForPrediction
-  suggestedInvocationPhrase:(NSString)suggestedInvocationPhrase
-  title:(NSString *)title
-  webpageURL:(NSString *)webpageURL
-  userInfo:(NSDictionary *)userInfo
-  locationInfo:(NSDictionary *)locationInfo
-  supportsNavigation:(BOOL)supportsNavigation
-  supportsPhoneCall:(BOOL)supportsPhoneCall
-  phoneNumber:(NSString *)phoneNumber
-  description:(NSString *)description
-  thumbnailURL:(NSString *)thumbnailURL
-  identifier:(NSString *)identifier
+    createActivity:(NSString *)activityType
+    eligibleForSearch:(BOOL)eligibleForSearch
+    eligibleForPublicIndexing:(BOOL)eligibleForPublicIndexing
+    eligibleForHandoff:(BOOL)eligibleForHandoff
+    eligibleForPrediction:(BOOL)eligibleForPrediction
+    suggestedInvocationPhrase:(NSString *)suggestedInvocationPhrase
+    title:(NSString *)title
+    webpageURL:(NSString *)webpageURL
+    userInfo:(NSDictionary *)userInfo
+    locationInfo:(NSDictionary *)locationInfo
+    supportsNavigation:(BOOL)supportsNavigation
+    supportsPhoneCall:(BOOL)supportsPhoneCall
+    phoneNumber:(NSString *)phoneNumber
+    description:(NSString *)description
+    thumbnailURL:(NSString *)thumbnailURL
+    identifier:(NSString *)identifier
 )
 {
-  if([NSUserActivity class] && [NSUserActivity instancesRespondToSelector:@selector(setEligibleForSearch:)]){
+    // Your implementation here
+    if([NSUserActivity class] && [NSUserActivity instancesRespondToSelector:@selector(setEligibleForSearch:)]){
 
-    if(!self.lastUserActivities) {
-      self.lastUserActivities = [@[] mutableCopy];
-    }
-
-    NSUserActivity* activity = [[NSUserActivity alloc] initWithActivityType:activityType];
-
-    activity.eligibleForSearch = eligibleForSearch;
-    activity.eligibleForPublicIndexing = eligibleForPublicIndexing;
-    activity.eligibleForHandoff = eligibleForHandoff;
-    activity.eligibleForPrediction = eligibleForPrediction;
-
-    activity.suggestedInvocationPhrase = suggestedInvocationPhrase;
-    activity.title = title;
-    activity.webpageURL = [NSURL URLWithString:webpageURL];
-    activity.userInfo = userInfo;
-
-    activity.keywords = [NSSet setWithArray:@[title]];
-
-    if ([CSSearchableItemAttributeSet class]) {
-        CSSearchableItemAttributeSet *contentSet = [[CSSearchableItemAttributeSet alloc] initWithItemContentType:activityType];
-        contentSet.title = title;
-        contentSet.URL = [NSURL URLWithString:webpageURL];
-        if (description) {
-            contentSet.contentDescription = description;
+        if(!self.lastUserActivities) {
+            self.lastUserActivities = [@[] mutableCopy];
         }
-        if (thumbnailURL) {
-            contentSet.thumbnailURL = [NSURL fileURLWithPath:thumbnailURL];
+
+        NSUserActivity* activity = [[NSUserActivity alloc] initWithActivityType:activityType];
+
+        if (@available(iOS 12.0, *)) {
+            activity.eligibleForPrediction = eligibleForPrediction;
+            activity.suggestedInvocationPhrase = suggestedInvocationPhrase;
         }
-        if (identifier) {
-            contentSet.identifier = identifier;
+
+        activity.eligibleForSearch = eligibleForSearch;
+        activity.eligibleForPublicIndexing = eligibleForPublicIndexing;
+        activity.eligibleForHandoff = eligibleForHandoff;
+        activity.title = title;
+        activity.webpageURL = [NSURL URLWithString:webpageURL];
+        activity.userInfo = userInfo;
+        activity.keywords = [NSSet setWithArray:@[title]];
+
+        if ([CSSearchableItemAttributeSet class]) {
+            CSSearchableItemAttributeSet *contentSet = [[CSSearchableItemAttributeSet alloc] initWithItemContentType:activityType];
+            contentSet.title = title;
+            contentSet.URL = [NSURL URLWithString:webpageURL];
+            if (description) {
+                contentSet.contentDescription = description;
+            }
+            if (thumbnailURL) {
+                contentSet.thumbnailURL = [NSURL fileURLWithPath:thumbnailURL];
+            }
+            if (identifier) {
+                contentSet.identifier = identifier;
+            }
+            if (phoneNumber) {
+                contentSet.phoneNumbers = @[phoneNumber];
+            }
+            contentSet.supportsNavigation = @(supportsNavigation);
+            contentSet.supportsPhoneCall = @(supportsPhoneCall);
+            activity.contentAttributeSet = contentSet;
         }
-        if (phoneNumber) {
-            contentSet.phoneNumbers = @[phoneNumber];
-        }
-        contentSet.supportsNavigation = @(supportsNavigation);
-        contentSet.supportsPhoneCall = @(supportsPhoneCall);
-        activity.contentAttributeSet = contentSet;
-    }
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
-    if ([activity respondsToSelector:@selector(mapItem)] && [locationInfo objectForKey:@"lat"] && [locationInfo objectForKey:@"lon"]) {
-        MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake([locationInfo[@"lat"] doubleValue], [locationInfo[@"lon"] doubleValue])];
-        MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
-        mapItem.name = title;
-        mapItem.url = [NSURL URLWithString:webpageURL];
-        activity.mapItem = mapItem;
-    }
+        if ([activity respondsToSelector:@selector(mapItem)] && [locationInfo objectForKey:@"lat"] && [locationInfo objectForKey:@"lon"]) {
+            MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake([locationInfo[@"lat"] doubleValue], [locationInfo[@"lon"] doubleValue])];
+            MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
+            mapItem.name = title;
+            mapItem.url = [NSURL URLWithString:webpageURL];
+            activity.mapItem = mapItem;
+        }
 #endif
 
-    self.lastRNSiriShortcuts = activity;
-    [self.lastUserActivities addObject:activity];
-    [activity becomeCurrent];
+        self.lastUserActivity = activity;
+        [self.lastUserActivities addObject:activity];
+        [activity becomeCurrent];
 
-    if (self.lastUserActivities.count > 5) {
-      [self.lastUserActivities removeObjectAtIndex:0];
+        if (self.lastUserActivities.count > 5) {
+            [self.lastUserActivities removeObjectAtIndex:0];
+        }
     }
-  }
 }
 
 @end
