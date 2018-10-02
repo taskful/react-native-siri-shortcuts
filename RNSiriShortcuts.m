@@ -83,7 +83,7 @@ RCT_EXPORT_METHOD(
         [self.lastUserActivities addObject:activity];
         [activity becomeCurrent];
 
-        if (self.lastUserActivities.count > 5) {
+        if (self.lastUserActivities.count > 20) {
             [self.lastUserActivities removeObjectAtIndex:0];
         }
     }
